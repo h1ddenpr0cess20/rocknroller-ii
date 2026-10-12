@@ -61,7 +61,7 @@ export const FOES = Object.freeze({
   parrot: { name: 'Animatronic Parrot', blurb: 'Squawks its lines. Better than the leads.', move: 'fly', toughness: 3, power: 3, hype: 60, radius: 0.32, speed: 2.8, shout: 'SQUAWK!' },
   // The ones who run the picture.
   director: { name: 'The Director', blurb: 'Wants it again. Bigger. With feeling. Lunges for the close-up.', move: 'walk', toughness: 9, power: 9, hype: 600, radius: 0.85, speed: 1.6, boss: true, hp: 50, tactic: 'lunge' },
-  mrbig: { name: 'Mr. Big', blurb: 'Runs the docks, the cops and the rain. Moves only on the beat.', move: 'walk', toughness: 9, power: 10, hype: 800, radius: 0.85, speed: 1.8, boss: true, hp: 56, tactic: 'tempo' },
+  mrbig: { name: 'Mr. Big', blurb: 'Runs the docks, the cops and the rain. Moves only on the beat.', move: 'walk', toughness: 9, power: 9, hype: 800, radius: 0.85, speed: 1.8, boss: true, hp: 56, tactic: 'tempo' },
   mogul: { name: 'The Mogul', blurb: 'Owns the studio, the lot and the rights to your face. Stamps.', move: 'walk', toughness: 10, power: 12, hype: 1500, radius: 1.04, speed: 1.6, boss: true, hp: 70, tactic: 'stomp' },
 });
 

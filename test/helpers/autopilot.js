@@ -166,6 +166,8 @@ const liftWaiting = (l, end) => (gig) => {
 };
 
 let openFloor = () => false;
+/** Floor with nothing on it or in it: somewhere to take a run-up across. */
+let clearFloor = () => false;
 
 /** Whether there is floor all the way along a straight line from `a` to `c`, level enough to roll along it. */
 function open(a, c) {
@@ -222,7 +224,7 @@ function waypoints(gig, moves, from) {
         point.charge = true;
         const [dx, dz] = [m.x - prev[0], m.z - prev[1]];
         let run = 0;
-        while (run < 5 && openFloor(m.x - dx * (run + 1), m.z - dz * (run + 1))) run++;
+        while (run < 5 && clearFloor(m.x - dx * (run + 1), m.z - dz * (run + 1))) run++;
         if (run >= 3) {
           out.push({ at: centre(m.x - dx * run, m.z - dz * run), speed: 2.5, stop: true, radius: 0.3 });
           for (let k = run - 1; k >= 1; k--) out.push({ at: centre(m.x - dx * k, m.z - dz * k), speed: g.breakAt + 1.6, charge: true });
@@ -246,7 +248,8 @@ export function drive(index, { limit = 1200, sample = null, reels = true, duel =
   const gig = createGig(GFX, index);
   const venue = gig.venue;
   const net = graph(venue);
-  openFloor = (x, z) => {
+  openFloor = (x, z) => venue.cell(x, z)?.kind === 'floor';
+  clearFloor = (x, z) => {
     const c = venue.cell(x, z);
     return c?.kind === 'floor' && !c.prop && !c.door && !c.trap && !c.crush && c.fx !== 'sticky' && !venue.bumpers.some((b) => Math.floor(b.x) === x && Math.floor(b.z) === z);
   };
