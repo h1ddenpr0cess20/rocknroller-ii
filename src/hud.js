@@ -1,4 +1,4 @@
-import { goals, RECORDS } from './rating.js';
+import { goals, REELS } from './rating.js';
 import { MAX_INTEGRITY } from './integrity.js';
 import { VENUES } from './venues/index.js';
 
@@ -44,7 +44,7 @@ export function createHud(root, { onStart, onResume, onRestart, onQuit, onNext, 
     <div class="hype"><span class="label">Buzz</span><span class="num">0</span>
       <div class="combo"><b>×1</b><div class="bar"><i></i></div></div></div>
     <div class="carried">
-      <div class="chip records"><span class="n">0/3</span><small>records</small></div>
+      <div class="chip reels"><span class="n">0/3</span><small>reels</small></div>
       <div class="chip passes"><span class="n">0</span><small>pass</small></div>
       <div class="chip takes"><span class="n">0</span><small>take two</small></div>
     </div>
@@ -62,7 +62,7 @@ export function createHud(root, { onStart, onResume, onRestart, onQuit, onNext, 
   const comboX = combo.querySelector('b');
   const comboBar = combo.querySelector('.bar i');
   const chips = {
-    records: hud.querySelector('.chip.records'),
+    reels: hud.querySelector('.chip.reels'),
     passes: hud.querySelector('.chip.passes'),
     takes: hud.querySelector('.chip.takes'),
   };
@@ -268,7 +268,7 @@ export function createHud(root, { onStart, onResume, onRestart, onQuit, onNext, 
     }
     for (const p of gig.actors.pickups) {
       if (p.taken || !explored[Math.floor(p.z) * venue.cols + Math.floor(p.x)]) continue;
-      mapCtx.fillStyle = p.kind === 'pass' ? '#2de2ff' : p.kind === 'tape' ? '#c8ccd4' : p.kind === 'clapper' ? '#ffffff' : p.kind === 'record' ? '#ffd23a' : '#fff0c8';
+      mapCtx.fillStyle = p.kind === 'pass' ? '#2de2ff' : p.kind === 'tape' ? '#c8ccd4' : p.kind === 'clapper' ? '#ffffff' : p.kind === 'reel' ? '#ffd23a' : '#fff0c8';
       mapCtx.fillRect(p.x * s - s / 2, p.z * s - s / 2, s, s);
     }
     mapCtx.fillStyle = '#ffffff';
@@ -306,7 +306,7 @@ export function createHud(root, { onStart, onResume, onRestart, onQuit, onNext, 
       hideScreens();
       tour.hidden = false;
       venuesEl.replaceChildren(...INFO.map((v, i) => {
-        const s = saved.venues[i] ?? { stars: 0, best: 0, records: 0 };
+        const s = saved.venues[i] ?? { stars: 0, best: 0, reels: 0 };
         const b = el('button', `venue ${v.grade}`);
         b.type = 'button';
         b.style.setProperty('--tint', v.tint);
@@ -335,7 +335,7 @@ export function createHud(root, { onStart, onResume, onRestart, onQuit, onNext, 
     play(venue) {
       hideScreens();
       hud.hidden = false;
-      plate.querySelector('.act').textContent = `Scene ${venue.act}${venue.look.genre ? ` · ${venue.look.genre}` : ''}`;
+      plate.querySelector('.act').textContent = `Reel ${venue.act}${venue.look.genre ? ` · ${venue.look.genre}` : ''}`;
       plate.querySelector('.name').textContent = venue.name;
       revButton.classList.add('available');
     },
@@ -371,14 +371,14 @@ export function createHud(root, { onStart, onResume, onRestart, onQuit, onNext, 
       revEl.classList.toggle('empty', frac < 0.15);
     },
 
-    carried({ records = 0, passes = 0, takes = 0 }) {
+    carried({ reels = 0, passes = 0, takes = 0 }) {
       const set = (chip, n, text, show) => {
         const was = chip.querySelector('.n').textContent;
         chip.querySelector('.n').textContent = text ?? String(n);
         chip.classList.toggle('show', show);
         if (was !== chip.querySelector('.n').textContent) { chip.classList.remove('pop'); void chip.offsetWidth; chip.classList.add('pop'); }
       };
-      set(chips.records, records, `${records}/${RECORDS}`, records > 0);
+      set(chips.reels, reels, `${reels}/${REELS}`, reels > 0);
       set(chips.passes, passes, null, passes > 0);
       set(chips.takes, takes, null, takes > 0);
     },
@@ -447,7 +447,7 @@ export function createHud(root, { onStart, onResume, onRestart, onQuit, onNext, 
     review(result) {
       hideScreens();
       review.hidden = false;
-      review.querySelector('.venue-name').textContent = `Scene ${result.act} · ${result.name}`;
+      review.querySelector('.venue-name').textContent = `Reel ${result.act} · ${result.name}`;
       review.querySelector('.big-stars').innerHTML = stars(result.stars);
       review.querySelector('.newbest').hidden = !result.newBest;
       review.querySelector('.goals').innerHTML = goals(result).map((g) => `
@@ -466,7 +466,7 @@ export function createHud(root, { onStart, onResume, onRestart, onQuit, onNext, 
     over(result, quip = '') {
       hideScreens();
       over.hidden = false;
-      over.querySelector('.venue-name').textContent = `Scene ${result.act} · ${result.name}`;
+      over.querySelector('.venue-name').textContent = `Reel ${result.act} · ${result.name}`;
       over.querySelector('.quip').textContent = quip ? `“${quip}”` : '';
       over.querySelector('.tally').innerHTML = `
         <div><b>${grand(result.hype)}</b><span class="label">Buzz</span></div>

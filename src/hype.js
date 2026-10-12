@@ -38,7 +38,7 @@ export function smashed(hype, base, time, scale = 1) {
   return { gain, multiplier, combo: hype.combo };
 }
 
-/** Points that don't count toward the combo: popcorn, buckets, records, the wrap bonus. */
+/** Points that don't count toward the combo: popcorn, buckets, reels, the wrap bonus. */
 export function earn(hype, amount) {
   hype.score += amount;
   return amount;

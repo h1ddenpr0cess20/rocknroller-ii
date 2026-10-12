@@ -432,9 +432,9 @@ export class Venue {
     return this;
   }
 
-  /** A gold record: three are hidden on every set. */
-  record(x, z) {
-    this.pickups.push({ kind: 'record', x: x + 0.5, z: z + 0.5, amount: 100 });
+  /** A golden reel: three are hidden on every set. */
+  reel(x, z) {
+    this.pickups.push({ kind: 'reel', x: x + 0.5, z: z + 0.5, amount: 100 });
     return this;
   }
 

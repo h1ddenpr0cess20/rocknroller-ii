@@ -264,8 +264,8 @@ export function createAudio() {
       tone({ at: 0.09, freq: NOTE(95), length: 0.2, type: 'square', gain: 0.07 });
     },
 
-    /** A gold record: a fanfare. */
-    record() {
+    /** A golden reel: a fanfare. */
+    reel() {
       [72, 76, 79, 84].forEach((n, i) => tone({ at: i * 0.09, freq: NOTE(n), length: 0.6, type: 'triangle', gain: 0.13 }));
       fanfare(60, 1.2, 0.35, 0.06);
       cheer(0.7, 1.8);
@@ -346,7 +346,7 @@ export function createAudio() {
       cheer(1.6, 3.2);
     },
 
-    /** Shattered: the film runs out and flaps round and round, and the projector winds down. */
+    /** Shattered: the film runs out and flaps on the reel, and the projector winds down. */
     over() {
       for (let i = 0; i < 14; i++) burst({ at: i * (0.06 + i * 0.004), length: 0.03, type: 'bandpass', freq: 1500, q: 3, gain: 0.35 - i * 0.02 });
       tone({ freq: 220, to: 50, length: 1.6, type: 'sawtooth', gain: 0.08 });

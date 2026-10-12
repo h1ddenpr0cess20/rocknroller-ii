@@ -3,12 +3,12 @@ import { Venue } from '../venue.js';
 import { across, backTile, barred, branch, centre, flat, toBack, wallTile, wash } from './helpers.js';
 
 /**
- * Scene 2: The Backlot. The studio after dark, searchlights over the hills:
+ * Reel 2: The Backlot. The studio after dark, searchlights over the hills:
  * in at the gate, down New York Street — a city block that is only ever
  * the front of one, brownstones and a diner with nothing behind them but
  * scaffolding, and one façade that is only painted foam — onto the studio
  * tour's tram, across the flash-flood channel, along the edge of the water
- * tank (a raft goes out to the island in the middle, and a record is on it),
+ * tank (a raft goes out to the island in the middle, and a reel is on it),
  * through the stunt show, where the pyro goes up on the beat, down
  * soundstage alley under the rigs being flown in, and into the props
  * warehouse, which is a closed set: the pass is in the commissary, with a
@@ -63,12 +63,12 @@ export function backlot() {
   g.popcorn(...street.tile(2, 2), 10).popcorn(...street.tile(8, -2), 10).popcorn(...street.tile(12, 3), 10).popcorn(...street.tile(16, 0), 10);
   sign(street, 5, 'DINER', '#ff5a7a', 0.6);
   sign(street, 13, 'HOTEL', '#7ad8ff', 0.6);
-  // Through the front of a brownstone that is only painted foam: scaffolding, and a record left on it.
+  // Through the front of a brownstone that is only painted foam: scaffolding, and a reel left on it.
   const fake = branch(d, street, 8, 'back', 5);
   const foam = fake.hall(5, { wall: 'flats', floor: 'concrete' });
   flat(g, foam, 1, { look: 'brick' });
   const scaffold = fake.room(5, 5, { wall: 'flats', floor: 'planks' });
-  g.record(...scaffold.tile(3, 0));
+  g.reel(...scaffold.tile(3, 0));
   g.popcorn(...scaffold.tile(1, -1), 10).popcorn(...scaffold.tile(1, 1), 10);
   d.turn('+x', STREET);
 
@@ -92,7 +92,7 @@ export function backlot() {
   const ferry = isle.ferry(9, { size: 3, period: 7, style: 'raft' });
   void ferry;
   const island = isle.room(5, 5, { floor: 'grass', wall: 'fence' });
-  g.record(...island.tile(2, 0));
+  g.reel(...island.tile(2, 0));
   g.popcorn(...island.tile(3, -1), 10).popcorn(...island.tile(3, 1), 10);
   d.turn('+x', { wall: 'corrugated' });
   d.hall(3, { wall: 'corrugated', floor: 'concrete' });
@@ -144,12 +144,12 @@ export function backlot() {
   g.bucket(...store.tile(13, 5), 60);
   g.tape(...store.tile(11, -5));
   wash(g, store, ['#ffd8a0', '#fff4e0'], { cans: 2, program: 'static' });
-  // Behind a painted sky, at the back of the warehouse: the last record.
+  // Behind a painted sky, at the back of the warehouse: the last reel.
   const sky = branch(d, store, 11, 'back', 6);
   const skyHall = sky.hall(6, { wall: 'flats' });
   flat(g, skyHall, 1, { breakAt: 6.5, look: 'backdrop' });
   const nook = sky.room(5, 5, { wall: 'flats' });
-  g.record(...nook.tile(3, 0));
+  g.reel(...nook.tile(3, 0));
   g.bucket(...nook.tile(1, 1), 70);
   d.hall(3, { wall: 'corrugated' });
   d.turn('+z', { wall: 'stucco' });

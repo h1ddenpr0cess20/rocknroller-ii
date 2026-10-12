@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { FOES } from '../src/foes.js';
-import { RECORDS } from '../src/rating.js';
+import { REELS } from '../src/rating.js';
 import { VENUES, loadVenue } from '../src/venues/index.js';
 import * as GFX from '../src/vendor/gfx/index.js';
 import { createGig } from '../src/gig.js';
@@ -11,14 +11,14 @@ import { drive, graph, plan } from './helpers/autopilot.js';
 /** The boss of each set that has one. */
 const bossOf = (venue) => venue.foes.filter((f) => FOES[f.kind].boss).map((f) => f.kind);
 
-test('every set can be played through to Rock\'s mark in one piece, with all its records', () => {
+test('every set can be played through to Rock\'s mark in one piece, with all its reels', () => {
   for (let i = 0; i < VENUES.length; i++) {
     const r = drive(i);
     const name = r.gig.venue.name;
     assert.ok(r.finished, `${name}: the autopilot got stuck (${JSON.stringify(r.stuck)})`);
-    const records = r.gig.actors.pickups.filter((p) => p.kind === 'record');
-    assert.equal(records.length, RECORDS, `${name} hides ${RECORDS} records`);
-    assert.ok(records.every((p) => p.taken), `${name}: every record can be got`);
+    const reels = r.gig.actors.pickups.filter((p) => p.kind === 'reel');
+    assert.equal(reels.length, REELS, `${name} hides ${REELS} reels`);
+    assert.ok(reels.every((p) => p.taken), `${name}: every reel can be got`);
     assert.ok(r.gig.rock.hp > 0, `${name}: Rock got there whole`);
   }
 });
