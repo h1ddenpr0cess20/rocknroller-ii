@@ -75,7 +75,6 @@ export function backlot() {
   // The tram stop, and the flash-flood channel: the tour tram is the only way across.
   const stop = d.hall(5, STREET);
   g.popcorn(...stop.tile(1, 0), 5).popcorn(...stop.tile(3, 0), 5);
-  g.light('marquee', ...wallTile(stop, 2.5), { text: 'STUDIO TOUR', color: '#ffd890', size: 0.45, height: 1.6 });
   const flood = d.ferry(12, { size: 3, period: 8, style: 'tram' });
   g.zap(...flood.rect(0, 12, flood.lo - 2, 7), d.h - 1.8, { fill: true });
   d.hall(2, STREET);
@@ -88,6 +87,7 @@ export function backlot() {
   g.popcorn(...edge.tile(3, edge.back), 5).popcorn(...edge.tile(9, edge.back), 10).popcorn(...edge.tile(16, edge.back), 5);
   sign(edge, 4, 'TANK 1', '#7ad8ff', 0.5);
   sign(edge, 17, 'NO SWIMMING', '#ff5a3a', 0.4);
+  g.light('marquee', ...wallTile(edge, 10.5), { text: 'STUDIO TOUR', color: '#ffd890', size: 0.45, height: 1.6 });
   const isle = branch(d, edge, 11, 'front', 2);
   const ferry = isle.ferry(9, { size: 3, period: 7, style: 'raft' });
   void ferry;
