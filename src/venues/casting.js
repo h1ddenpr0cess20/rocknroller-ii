@@ -3,7 +3,7 @@ import { Venue } from '../venue.js';
 import { across, backTile, barred, flat, pick, toBack, wallTile } from './helpers.js';
 
 /**
- * Reel 1: The Casting Call. Where Rock starts: the studio's casting office,
+ * Scene 1: The Casting Call. Where Rock starts: the studio's casting office,
  * after hours, for the night shoot of Like a Rock. In off the lot by the
  * stage door, past a queue of hopefuls with their headshots, into a waiting
  * room of plastic chairs under strip lights, along the corridor behind Stage
@@ -11,7 +11,7 @@ import { across, backTile, barred, flat, pick, toBack, wallTile } from './helper
  * and lamps and a director's chair. Everything is taught here: rolling over
  * popcorn, running at somebody to smash them, a sandbag that drops on the
  * beat, a closed set and its pass, and a breakaway flat that someone ought
- * to run at, with a golden reel behind it. Extras, a production assistant,
+ * to run at, with a gold record behind it. Extras, a production assistant,
  * and an agent who wants ten percent of Rock.
  */
 
@@ -68,12 +68,12 @@ export function casting() {
   sign(room, 6.5, 'NEXT', '#ff6a4a', 0.5, 1.7);
   lamp(room, 4);
   lamp(room, 13, 2.5, OFFICE[0]);
-  // Off the front of the room, a bay behind a breakaway flat: the first golden reel. Run at it.
+  // Off the front of the room, a bay behind a breakaway flat: the first gold record. Run at it.
   const bay = d.fork().jump(pick(room.tile(7, -room.back * 6), room.back > 0 ? '+x' : '-x'));
   const bayHall = bay.hall(3, { width: 3, wall: 'flats' });
   flat(g, bayHall, 1, { look: 'flat' });
   const closet = bay.room(5, 5, { wall: 'flats' });
-  g.reel(...closet.tile(3, 0));
+  g.record(...closet.tile(3, 0));
   g.popcorn(...closet.tile(1, -1), 10).popcorn(...closet.tile(1, 1), 10);
   d.hall(5, { wall: 'wallpaper' });
   d.turn('+x', { wall: 'wallpaper' });
@@ -116,13 +116,13 @@ export function casting() {
   g.pillar(...rails.tile(5, 3), 1.1, { prop: 'rack' });
   g.foe('extra', ...rails.tile(2, 2), { range: 4 });
   g.popcorn(...rails.tile(4, -2), 10);
-  // And over the pit, along a plank, a second reel.
+  // And over the pit, along a plank, a second record.
   const pit = d.fork().jump(pick(stage.tile(10, stage.back * 7), stage.back > 0 ? '-x' : '+x'));
   pit.hall(2, { wall: 'curtain' });
   const plank = pit.bridge(7, { floor: 'planks' });
   g.foe('extra', ...plank.tile(3, 0), { path: [plank.tile(1, 0), plank.tile(5, 0)] });
   const alcove = pit.room(5, 5, { wall: 'curtain' });
-  g.reel(...alcove.tile(2, 0));
+  g.record(...alcove.tile(2, 0));
   d.hall(4, { wall: 'curtain' });
   const gate = d.hall(6, { wall: 'stucco' });
   barred(g, gate, 3);
@@ -130,14 +130,14 @@ export function casting() {
   d.turn('+x', { wall: 'stucco' });
   d.ramp(7, 3, { wall: 'stucco' });
 
-  // The last stretch: a ramp to run down, and a drywall office off it with the last reel behind the wall,
+  // The last stretch: a ramp to run down, and a drywall office off it with the last record behind the wall,
   // and the last roll of tape, for the sandbag still to come.
   const run = d.hall(9, { wall: 'stucco', floor: 'concrete' });
   const strongbox = d.fork().jump(pick(run.tile(4, -2), '-z'));
   const sbHall = strongbox.hall(7, { wall: 'wallpaper' });
   flat(g, sbHall, 6, { breakAt: 6.5, look: 'drywall' });
   const office = strongbox.room(5, 5, { wall: 'wallpaper', floor: 'carpet' });
-  g.reel(...office.tile(3, 0));
+  g.record(...office.tile(3, 0));
   g.bucket(...office.tile(1, -1), 70).tape(...office.tile(1, 1));
   g.foe('agent', ...run.tile(6, 1), { range: 5 });
   g.drop(...across(run, 8, { beats: 4 }));

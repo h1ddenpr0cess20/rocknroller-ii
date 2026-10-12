@@ -3,18 +3,18 @@
  *
  *   ★  Hit your mark: get to the end of the scene.
  *   ★  Scene-stealer: smash at least three in four of the people in the way.
- *   ★  In the can: find all three golden reels.
+ *   ★  Collector: find all three gold records.
  */
 
 export const SMASH_SHARE = 0.75;
-export const REELS = 3;
+export const RECORDS = 3;
 
-/** The goals, and whether `result` ({ smashed, foes, reels }) met each. */
-export function goals({ smashed = 0, foes = 0, reels = 0 }) {
+/** The goals, and whether `result` ({ smashed, foes, records }) met each. */
+export function goals({ smashed = 0, foes = 0, records = 0 }) {
   return [
     { id: 'mark', title: 'Hit your mark', text: 'Get to the end of the scene.', met: true },
     { id: 'steal', title: 'Scene-stealer', text: `Smash ${Math.ceil(foes * SMASH_SHARE)} of the ${foes} people in the way.`, met: foes === 0 || smashed >= Math.ceil(foes * SMASH_SHARE), progress: [Math.min(smashed, foes), foes] },
-    { id: 'reels', title: 'In the can', text: 'Find all three golden reels.', met: reels >= REELS, progress: [Math.min(reels, REELS), REELS] },
+    { id: 'records', title: 'Collector', text: 'Find all three gold records.', met: records >= RECORDS, progress: [Math.min(records, RECORDS), RECORDS] },
   ];
 }
 

@@ -168,7 +168,7 @@ export function createGame({ stage, hud, input, audio, storage }) {
     enter('ready');
     const venue = gig.venue;
     hud.play(venue);
-    hud.banner(`REEL ${venue.act}\n${venue.name.toUpperCase()}`, 'big', venue.intro);
+    hud.banner(`SCENE ${venue.act}\n${venue.name.toUpperCase()}`, 'big', venue.intro);
     hud.hype(0);
     hud.integrity(gig.rock);
     hud.carried({});
@@ -387,19 +387,19 @@ export function createGame({ stage, hud, input, audio, storage }) {
       audio.pass();
       hud.banner('STUDIO PASS');
       hud.say(say('pass', voice()), 'Rock', 2.4);
-    } else if (p.kind === 'reel') {
+    } else if (p.kind === 'record') {
       effects.sparkle(p.x, p.y, p.z, '#ffd23a');
       effects.popcorn(p.x, p.y, p.z, 14);
       effects.confetti(p.x, p.y, p.z, 30);
-      audio.reel();
-      hud.banner(`GOLDEN REEL\n${gig.stats.reels} of 3`, 'normal');
-      hud.say(say('reel', voice()), 'Rock', 3);
+      audio.record();
+      hud.banner(`GOLD RECORD\n${gig.stats.records} of 3`, 'normal');
+      hud.say(say('record', voice()), 'Rock', 3);
       hud.hype(gig.hype.score, { pulse: true });
     }
     hud.carried(carriedNow());
   }
 
-  const carriedNow = () => ({ reels: gig.stats.reels, passes: gig.passes, takes: gig.rock.takes });
+  const carriedNow = () => ({ records: gig.stats.records, passes: gig.passes, takes: gig.rock.takes });
 
   /** Sparks off the zap floor near Rock, a few a second. */
   function zapSparks(dt) {

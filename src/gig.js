@@ -56,7 +56,7 @@ export function createGig(GFX, index, { ball = createBall({ r: ROCK_RADIUS, mass
     index, venue, built, world: built.world, actors, killY, ball, roll,
     time: 0, safe, passes: 0, explored: new Uint8Array(venue.cols * venue.rows), lockedAt: -Infinity,
     rock: createIntegrity(), hype: createHype(), rev: REV.max, revving: false,
-    stats: { foes: venue.foes.length, smashed: 0, popcorn: 0, reels: 0, damage: 0, falls: 0 },
+    stats: { foes: venue.foes.length, smashed: 0, popcorn: 0, records: 0, damage: 0, falls: 0 },
   };
   actors.place(0);
   placeBall(ball, ...safe);
@@ -330,11 +330,11 @@ function collect(gig, p) {
   } else if (p.kind === 'tape') heal(gig.rock, p.amount);
   else if (p.kind === 'clapper') gig.rock.takes += 1;
   else if (p.kind === 'pass') gig.passes += 1;
-  else if (p.kind === 'reel') {
-    gig.stats.reels += 1;
+  else if (p.kind === 'record') {
+    gig.stats.records += 1;
     earn(gig.hype, p.amount);
   }
 }
 
 /** The rating inputs for this set as it stands. */
-export const resultOf = (gig) => ({ smashed: gig.stats.smashed, foes: gig.stats.foes, reels: gig.stats.reels });
+export const resultOf = (gig) => ({ smashed: gig.stats.smashed, foes: gig.stats.foes, records: gig.stats.records });

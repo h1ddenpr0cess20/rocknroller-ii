@@ -3,12 +3,12 @@ import { Venue } from '../venue.js';
 import { across, backTile, barred, branch, flat, toBack, wallTile, wash } from './helpers.js';
 
 /**
- * Reel 3: The Western. A frontier town on the backlot, shot day-for-night
+ * Scene 3: The Western. A frontier town on the backlot, shot day-for-night
  * and printed in sepia: down off Boot Hill among the headstones, along Main
  * Street, its mud churned to soup between the troughs and the barrels, a
- * reel in the bank's vault behind a balsa wall; into the saloon, where an
+ * record in the bank's vault behind a balsa wall; into the saloon, where an
  * extra has been drinking the prop whiskey, and the mirror behind the bar is
- * sugar glass with a reel behind it; out the back past the sheriff's office (the pass is on
+ * sugar glass with a record behind it; out the back past the sheriff's office (the pass is on
  * his desk), the livery and its pantomime horse; and down into the mine,
  * barred until the pass opens it, where crates come down off the hoist, the
  * effects crew's dynamite goes off on the beat, and a mine cart is the way
@@ -65,12 +65,12 @@ export function western() {
   g.light('festoon', ...street.tile(2, -5), { to: [17 * street.dir[0] + 10 * street.across[0], 17 * street.dir[1] + 10 * street.across[1]], colors: ['#ffd890', '#ffb860', '#ff9a4a'], height: 2.4 });
   sign(street, 9, 'GENERAL STORE', DUSK[2], 0.4);
   sign(street, 17, 'BANK', DUSK[2], 0.5);
-  // Behind the bank's back wall, a stunt wall of balsa: the first reel, in the vault.
+  // Behind the bank's back wall, a stunt wall of balsa: the first record, in the vault.
   const bank = branch(d, street, 20, 'back', 6);
   const vaultHall = bank.hall(5, BOARDS);
   flat(g, vaultHall, 1, { look: 'wood' });
   const vault = bank.room(5, 5, { floor: 'planks', wall: 'block' });
-  g.reel(...vault.tile(3, 0));
+  g.record(...vault.tile(3, 0));
   g.popcorn(...vault.tile(1, -1), 10).popcorn(...vault.tile(1, 1), 10);
   d.hall(5, BOARDS);
   d.turn('+x', BOARDS);
@@ -87,12 +87,12 @@ export function western() {
   g.tape(...saloon.tile(14, 3));
   sign(saloon, 7, 'SALOON', '#ffd890', 0.6);
   wash(g, saloon, ['#ffb860', '#ff9a5a'], { cans: 2, program: 'static' });
-  // Through the mirror at the end of the bar, which is sugar glass, as saloon mirrors are: the back room, and a reel.
+  // Through the mirror at the end of the bar, which is sugar glass, as saloon mirrors are: the back room, and a record.
   const back = branch(d, saloon, 12, 'back', 6);
   const mirror = back.hall(4, BOARDS);
   flat(g, mirror, 1, { look: 'glass', breakAt: 6 });
   const den = back.room(5, 5, { floor: 'planks', wall: 'clapboard' });
-  g.reel(...den.tile(3, 0));
+  g.record(...den.tile(3, 0));
   g.popcorn(...den.tile(1, -1), 10).popcorn(...den.tile(1, 1), 10);
   d.hall(3, BOARDS);
   d.turn('+z', BOARDS);
@@ -139,7 +139,7 @@ export function western() {
   d.turn('+z', { floor: 'dirt', wall: 'stone' });
   d.stairs(3, 1.5, { wall: 'stone' });
 
-  // The seam: one more stick of dynamite, a stunt double, and along a plank over the dark, the last reel.
+  // The seam: one more stick of dynamite, a stunt double, and along a plank over the dark, the last record.
   const seam = d.room(13, 11, { floor: 'dirt', wall: 'stone' });
   g.pyro(...across(seam, 9, { beats: 6 }));
   g.foe('stuntman', ...seam.tile(5, 2), { range: 5 }).foe('cowboy', ...seam.tile(11, -2), { range: 4 });
@@ -150,7 +150,7 @@ export function western() {
   g.zap(...plank.rect(0, 7, plank.lo - 2, 5), shaft.h - 1.8, { fill: true });
   g.foe('pa', ...plank.tile(3, 0), { path: [plank.tile(1, 0), plank.tile(5, 0)] });
   const nugget = shaft.room(5, 5, { floor: 'dirt', wall: 'stone' });
-  g.reel(...nugget.tile(2, 0));
+  g.record(...nugget.tile(2, 0));
   g.bucket(...nugget.tile(3, 1), 70);
   d.hall(3, { floor: 'dirt', wall: 'stone' });
   d.ramp(5, 2, { wall: 'stone' });

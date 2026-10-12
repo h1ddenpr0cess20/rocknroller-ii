@@ -379,10 +379,10 @@ export function createLiftMesh(GFX, { w, d, thickness, style }) {
     camera.position.set(w / 2 + 0.75, top + 1.05, -d / 2 + 0.2);
     camera.rotation.y = -Math.PI / 2 - 0.4;
     for (const z of [-0.12, 0.12]) {
-      const reel = new GFX.Mesh(new GFX.CylinderGeometry(0.14, 0.14, 0.05, 16), dark(GFX, '#2a2a30'));
-      reel.rotation.x = Math.PI / 2;
-      reel.position.set(0, 0.26, z);
-      camera.add(reel);
+      const spool = new GFX.Mesh(new GFX.CylinderGeometry(0.14, 0.14, 0.05, 16), dark(GFX, '#2a2a30'));
+      spool.rotation.x = Math.PI / 2;
+      spool.position.set(0, 0.26, z);
+      camera.add(spool);
     }
     const lens = new GFX.Mesh(new GFX.CylinderGeometry(0.07, 0.09, 0.22, 12), dark(GFX, '#0a0a0c', { metalness: 0.6 }));
     lens.rotation.x = Math.PI / 2;
@@ -767,7 +767,7 @@ const STAND_INS = {
   tape: { color: '#9aa0a8', make: (GFX) => new GFX.TorusGeometry(0.1, 0.05, 8, 14), y: 0.2 },
   clapper: { color: '#e8e8ee', make: (GFX) => new GFX.BoxGeometry(0.26, 0.22, 0.03), y: 0.2 },
   pass: { color: '#f0b830', make: (GFX) => new GFX.BoxGeometry(0.16, 0.22, 0.02), y: 0.25 },
-  reel: { color: '#ffcf4a', make: (GFX) => new GFX.CylinderGeometry(0.2, 0.2, 0.02, 24), y: 0.3, tilt: true },
+  record: { color: '#ffcf4a', make: (GFX) => new GFX.CylinderGeometry(0.2, 0.2, 0.02, 24), y: 0.3, tilt: true },
 };
 
 /** A pickup to put in the world: its sculpted model as soon as it is baked, a stand-in till then. */

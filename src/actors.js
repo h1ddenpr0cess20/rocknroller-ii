@@ -8,7 +8,7 @@ import { collideBalls, createBall, PUSH, stepBall } from './physics.js';
  * fire from the floor, lifts (dollies and trams over the dark, platforms
  * down shafts), closed sets (a pass lifts their shutters), breakaways
  * (speed breaks them), bumpers, and what lies about — popcorn, buckets of
- * it, gaffer tape, clapperboards, passes and golden reels.
+ * it, gaffer tape, clapperboards, passes and gold records.
  */
 
 const CRUSHER_HEIGHT = 0.9;
@@ -20,7 +20,7 @@ const DOOR_THICKNESS = 0.18;
 const SLEEP = 26;
 
 /** How far each turning pickup's model is let down to touch the floor (its lowest point, as sculpted, is above it). */
-const SETTLE = Object.freeze({ tape: -0.014, pass: -0.078, reel: -0.062, clapper: 0.005 });
+const SETTLE = Object.freeze({ tape: -0.014, pass: -0.078, record: -0.062, clapper: 0.005 });
 
 /** Pickups that lie on the floor rather than float. */
 const STILL = new Set(['popcorn', 'bucket']);
