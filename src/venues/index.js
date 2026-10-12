@@ -1,6 +1,7 @@
 import { backlot } from './backlot.js';
 import { casting } from './casting.js';
 import { musical } from './musical.js';
+import { scifi } from './scifi.js';
 import { western } from './western.js';
 
 /**
@@ -8,7 +9,7 @@ import { western } from './western.js';
  * each dug with `dig.js` a piece at a time, with the people, hazards and
  * treasure put into the pieces by where they are in them.
  */
-export const VENUES = [casting, backlot, western, musical];
+export const VENUES = [casting, backlot, western, musical, scifi];
 
 export function loadVenue(index) {
   return VENUES[index]();

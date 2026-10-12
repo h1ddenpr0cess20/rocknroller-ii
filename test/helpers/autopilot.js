@@ -217,10 +217,18 @@ function waypoints(gig, moves, from) {
     if (cell.door) {
       const g = zoneOf(gig.actors.doors, m.x, m.z);
       if (g.kind === 'panel' && g.box.solid) {
-        // At a panel: fast, and for a few tiles before it, to have the speed.
+        // At a breakaway: back off along the way through it for a straight run, as a player would, and charge it.
         point.speed = g.breakAt + 1.6;
         point.charge = true;
-        for (let k = out.length - 1; k >= Math.max(0, out.length - 6); k--) Object.assign(out[k], { speed: Math.max(out[k].speed ?? 0, g.breakAt + 1.6), charge: true });
+        const [dx, dz] = [m.x - prev[0], m.z - prev[1]];
+        let run = 0;
+        while (run < 5 && openFloor(m.x - dx * (run + 1), m.z - dz * (run + 1))) run++;
+        if (run >= 3) {
+          out.push({ at: centre(m.x - dx * run, m.z - dz * run), speed: 2.5, stop: true, radius: 0.3 });
+          for (let k = run - 1; k >= 1; k--) out.push({ at: centre(m.x - dx * k, m.z - dz * k), speed: g.breakAt + 1.6, charge: true });
+        } else {
+          for (let k = out.length - 1; k >= Math.max(0, out.length - 6); k--) Object.assign(out[k], { speed: Math.max(out[k].speed ?? 0, g.breakAt + 1.6), charge: true });
+        }
       } else if (g.box.solid) Object.assign(point, { stop: true, until: () => !g.box.solid || g.box.min[1] > g.base + 1.1, speed: 2 });
     }
     out.push(point);
@@ -238,7 +246,10 @@ export function drive(index, { limit = 1200, sample = null, reels = true, duel =
   const gig = createGig(GFX, index);
   const venue = gig.venue;
   const net = graph(venue);
-  openFloor = (x, z) => venue.cell(x, z)?.kind === 'floor';
+  openFloor = (x, z) => {
+    const c = venue.cell(x, z);
+    return c?.kind === 'floor' && !c.prop && !c.door && !c.trap && !c.crush && c.fx !== 'sticky' && !venue.bumpers.some((b) => Math.floor(b.x) === x && Math.floor(b.z) === z);
+  };
   if (from) {
     gig.safe = [from[0] + 0.5, venue.heightAt(from[0] + 0.5, from[1] + 0.5) + gig.ball.r, from[1] + 0.5];
     putBack(gig);

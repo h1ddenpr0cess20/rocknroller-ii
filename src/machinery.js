@@ -17,14 +17,15 @@ const dark = (GFX, hex, o = {}) => new GFX.MeshStandardMaterial({ color: new GFX
  * What comes down on the beat, as the set says (`look.crusher`): by default
  * a row of sandbags off a batten; or a lighting rig (`rig`), a crystal
  * chandelier, a crate off a crane, a stack of speakers, or the props
- * department's papier-mâché boulder (`boulder`). It sways as it waits at
- * the top.
+ * department's papier-mâché boulder (`boulder`), or a spaceship's
+ * hydraulic press (`piston`). It sways as it waits at the top.
  */
 export function createDropMesh(GFX, { w, d, height, venue }) {
   const style = venue?.look?.crusher ?? 'sandbag';
   if (style === 'sandbag') return createSandbags(GFX, { w, d, height });
   if (style === 'rig') return createRig(GFX, { w, d, height });
   if (style === 'boulder') return createBoulder(GFX, { w, d, height });
+  if (style === 'piston') return createPiston(GFX, { w, d, height });
   if (style === 'chandelier') return createChandelier(GFX, { w, d, height });
   if (style === 'crate') return createCrate(GFX, { w, d, height });
   const group = new GFX.Group();
@@ -198,6 +199,36 @@ function createBoulder(GFX, { w, d, height }) {
   cable.position.y = height / 2 + 4;
   group.add(cable);
   return { group, update(up, time) { rock.rotation.y = up > 0.99 ? Math.sin(time * 1.3) * 0.2 : rock.rotation.y; } };
+}
+
+/** A hydraulic press, as the spaceship set has them: a steel block in hazard stripes on a ram out of the ceiling, lights round its foot. */
+function createPiston(GFX, { w, d, height }) {
+  const group = new GFX.Group();
+  const steel = dark(GFX, '#9aa2b0', { metalness: 0.85, roughness: 0.3 });
+  const yellow = dark(GFX, '#f0c020', { roughness: 0.5 });
+  const black = dark(GFX, '#16161a', { roughness: 0.6 });
+  const block = new GFX.Mesh(new GFX.BoxGeometry(w * 0.98, height, d * 0.98), steel);
+  block.castShadow = block.receiveShadow = true;
+  group.add(block);
+  // Hazard stripes round its foot.
+  const long = w >= d, L = long ? w : d;
+  for (let k = 0; k < Math.round(L * 4); k++) {
+    for (const side of [-1, 1]) {
+      const stripe = new GFX.Mesh(new GFX.BoxGeometry(long ? 0.12 : 0.02, height * 0.3, long ? 0.02 : 0.12), k % 2 ? yellow : black);
+      const a = -L / 2 + (k + 0.5) / 4;
+      stripe.position.set(long ? a : side * (w / 2), -height * 0.3, long ? side * (d / 2) : a);
+      stripe.rotation[long ? 'z' : 'x'] = 0.5;
+      group.add(stripe);
+    }
+  }
+  const glowMat = new GFX.MeshBasicMaterial({ color: new GFX.Color('#ff3a2a'), toneMapped: false });
+  const strip = new GFX.Mesh(new GFX.BoxGeometry(w + 0.02, 0.04, d + 0.02), glowMat);
+  strip.position.y = -height / 2 + 0.03;
+  group.add(strip);
+  const ram = new GFX.Mesh(new GFX.CylinderGeometry(Math.min(w, d) * 0.22, Math.min(w, d) * 0.22, 8, 14), steel);
+  ram.position.y = height / 2 + 4;
+  group.add(ram);
+  return { group, update(up, time) { const k = up < 0.99 && up > 0.01 ? 1 : 0.4 + 0.3 * Math.sin(time * 6); glowMat.color.setRGB(k, 0.2 * k, 0.15 * k); } };
 }
 
 /** A wooden crate on a crane hook: slats, steel bands, stencilled. */
