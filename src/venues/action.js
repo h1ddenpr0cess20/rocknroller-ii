@@ -47,7 +47,7 @@ export function action() {
   g.light('klieg', 3, 8, { yaw: 0.7, sweep: 0.9 });
   const d = digger(g, { x: 7, z: 6, h: 96, heading: '+x' });
   const roof = d.hall(12, { width: 5, floor: 'concrete', wall: 'fence' });
-  for (const k of [3, 8]) g.pillar(...backTile(roof, k), 1.0, { prop: 'rack' });
+  for (const k of [3, 8]) g.pillar(...backTile(roof, k), 1.0, { prop: 'vent' });
   g.foe('pa', ...roof.tile(6, 1), { range: 3 }).foe('drone', ...roof.tile(9, 0), { path: [roof.tile(3, 0), roof.tile(11, 0)] });
   g.popcorn(...roof.tile(1, 0), 5).popcorn(...roof.tile(5, -1), 5).popcorn(...roof.tile(10, 1), 10);
   sign(roof, 6, 'HELIPAD', BLAST[3], 0.5);

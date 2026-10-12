@@ -92,7 +92,7 @@ export function pirate() {
 
   // The hold: barrels and crates, lanterns swinging, the crew below decks; the captain's cabin aft.
   const hold = d.room(17, 13, { floor: 'planks', wall: 'plywood' });
-  for (const [a, b] of [[2, -5], [2, 5], [7, -5], [12, 5], [15, -5]]) g.pillar(...hold.tile(a, b), 0.8, { prop: 'case' });
+  for (const [a, b] of [[2, -5], [2, 5], [7, -5], [12, 5], [15, -5]]) g.pillar(...hold.tile(a, b), 0.8, { prop: 'crate' });
   for (const k of [4, 10]) g.pillar(...backTile(hold, k), 0.7, { prop: 'barrel' });
   g.foe('pirate', ...hold.tile(5, 1), { range: 5 }).foe('pirate', ...hold.tile(12, -2), { range: 5 });
   g.popcorn(...hold.tile(3, 0), 10).popcorn(...hold.tile(9, 3), 10).popcorn(...hold.tile(14, 0), 10);

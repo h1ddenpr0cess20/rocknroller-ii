@@ -118,7 +118,7 @@ export function musical() {
   flat(g, curtain, 3, { look: 'curtain', breakAt: 6.5 });
   const rails = ward.room(5, 5, { wall: 'curtain', floor: 'carpet' });
   g.reel(...rails.tile(3, 0));
-  g.pillar(...rails.tile(2, 2), 1.1, { prop: 'rack' });
+  g.pillar(...rails.tile(2, 2), 1.1, { prop: 'rail' });
   g.bucket(...rails.tile(1, -1), 60);
   const out = d.hall(4, { floor: 'concrete', wall: 'block' });
   barred(g, out, 2);

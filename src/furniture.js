@@ -59,23 +59,27 @@ function desk(GFX, { w = 3, d = 1, rise = 0.82 }) {
   };
 }
 
-/** A rack of gear: seven rack units, each with a row of LEDs that blink in time. */
-function rack(GFX, { rise = 1.1 }) {
+/** Racks of gear, one over each tile: seven rack units each, with a row of LEDs that blink in time. */
+function rack(GFX, { rise = 1.1, w = 1, d = 1 }) {
   const group = new GFX.Group();
-  const frame = shadowed(place(new GFX.Mesh(new GFX.BoxGeometry(0.72, rise, 0.62), std(GFX, '#17171c', { roughness: 0.5 })), 0, rise / 2, 0));
-  group.add(frame);
+  const frameMat = std(GFX, '#17171c', { roughness: 0.5 });
+  const plates = ['#b8bcc4', '#8a8e98'].map((c) => std(GFX, c, { metalness: 0.8, roughness: 0.35 }));
+  const ledMats = ['#ff3a4a', '#3aff7a', '#ffb02a', '#2de2ff'].map((c) => glow(GFX, c));
   const leds = [];
   const units = 7;
-  for (let u = 0; u < units; u++) {
-    const y = 0.1 + (u + 0.5) * ((rise - 0.16) / units);
-    const plate = new GFX.Mesh(new GFX.BoxGeometry(0.62, (rise - 0.2) / units - 0.02, 0.02), std(GFX, u % 2 ? '#b8bcc4' : '#8a8e98', { metalness: 0.8, roughness: 0.35 }));
-    place(plate, 0, y, 0.32);
-    group.add(plate);
-    for (let k = 0; k < 6; k++) {
-      const led = new GFX.Mesh(new GFX.BoxGeometry(0.03, 0.02, 0.01), glow(GFX, ['#ff3a4a', '#3aff7a', '#ffb02a', '#2de2ff'][(u + k) % 4]));
-      place(led, -0.22 + k * 0.085, y, 0.335);
-      group.add(led);
-      leds.push({ led, seed: u * 7 + k * 3 });
+  for (let i = 0; i < w; i++) {
+    for (let j = 0; j < d; j++) {
+      const ox = i - (w - 1) / 2, oz = j - (d - 1) / 2;
+      group.add(shadowed(place(new GFX.Mesh(new GFX.BoxGeometry(0.72, rise, 0.62), frameMat), ox, rise / 2, oz)));
+      for (let u = 0; u < units; u++) {
+        const y = 0.1 + (u + 0.5) * ((rise - 0.16) / units);
+        group.add(place(new GFX.Mesh(new GFX.BoxGeometry(0.62, (rise - 0.2) / units - 0.02, 0.02), plates[u % 2]), ox, y, oz + 0.32));
+        for (let k = 0; k < 6; k++) {
+          const led = place(new GFX.Mesh(new GFX.BoxGeometry(0.03, 0.02, 0.01), ledMats[(u + k) % 4]), ox - 0.22 + k * 0.085, y, oz + 0.335);
+          group.add(led);
+          leds.push({ led, seed: u * 7 + k * 3 + (i + j * w) * 11 });
+        }
+      }
     }
   }
   return {
@@ -120,7 +124,50 @@ function seat(GFX, { rise = 0.8, w = 1, d = 1, rot = 0 }) {
   return { group };
 }
 
-function piano(GFX, { w = 3, d = 2, rise = 0.88 }) {
+/**
+ * A piano to fill its footprint: a grand where there is room for one (laid
+ * along the longer side), and where there is not, an upright with its keys
+ * along the longer side; in the saloon, a honky-tonk one in brown wood.
+ */
+function piano(GFX, { w = 3, d = 2, rise = 0.88, venue }) {
+  if (Math.min(w, d) < 2) return upright(GFX, { w, d, rise, venue });
+  if (d <= w) return grand(GFX, { w, d, rise });
+  const group = new GFX.Group();
+  const made = grand(GFX, { w: d, d: w, rise });
+  made.group.rotation.y = Math.PI / 2;
+  group.add(made.group);
+  return { group };
+}
+
+function upright(GFX, { w = 2, d = 1, rise = 0.88, venue }) {
+  const group = new GFX.Group();
+  const inner = new GFX.Group();
+  if (d > w) inner.rotation.y = Math.PI / 2;
+  group.add(inner);
+  const long = Math.min(1.7, Math.max(w, d) * 0.86), tall = rise + 0.42;
+  const western = venue?.look?.genre === 'Western';
+  const body = western ? std(GFX, '#5a3420', { roughness: 0.4 }) : new GFX.MeshPhysicalMaterial({ color: new GFX.Color('#0e0e12'), roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.08 });
+  const add = (mesh, x, y, z) => inner.add(shadowed(place(mesh, x, y, z)));
+  add(new GFX.Mesh(new GFX.BoxGeometry(long, tall, 0.46), body), 0, tall / 2, -0.14);
+  add(new GFX.Mesh(new GFX.BoxGeometry(long + 0.04, 0.04, 0.5), body), 0, tall + 0.02, -0.14);
+  add(new GFX.Mesh(new GFX.BoxGeometry(long, 0.08, 0.26), body), 0, rise * 0.82, 0.2);
+  add(new GFX.Mesh(new GFX.BoxGeometry(long * 0.86, 0.025, 0.14), std(GFX, '#f4f0e8', { roughness: 0.3 })), 0, rise * 0.82 + 0.05, 0.22);
+  const blackKey = std(GFX, '#101012');
+  const n = Math.floor(long * 22);
+  for (let k = 0; k < n; k++) {
+    if ([2, 6].includes(k % 7)) continue;
+    inner.add(place(new GFX.Mesh(new GFX.BoxGeometry(0.018, 0.02, 0.08), blackKey), -long * 0.42 + (k + 0.5) * ((long * 0.84) / n), rise * 0.82 + 0.07, 0.19));
+  }
+  for (const s of [-1, 1]) add(new GFX.Mesh(new GFX.BoxGeometry(0.06, rise * 0.78, 0.06), body), s * (long / 2 - 0.05), rise * 0.39, 0.28);
+  const stand = place(new GFX.Mesh(new GFX.BoxGeometry(long * 0.4, 0.2, 0.015), body), 0, rise * 0.82 + 0.24, 0.1);
+  stand.rotation.x = -0.25;
+  inner.add(stand);
+  const brass = std(GFX, '#e0b44a', { metalness: 1, roughness: 0.3 });
+  for (const s of [-1, 1]) inner.add(place(new GFX.Mesh(new GFX.CylinderGeometry(0.03, 0.02, 0.08, 10), brass), s * long * 0.36, rise + 0.22, 0.12));
+  return { group };
+}
+
+function grand(GFX, { w = 3, d = 2, rise = 0.88 }) {
   const group = new GFX.Group();
   const gloss = new GFX.MeshPhysicalMaterial({ color: new GFX.Color('#0e0e12'), roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.08 });
   const body = shadowed(place(new GFX.Mesh(new GFX.BoxGeometry(w * 0.92, 0.2, d * 0.9), gloss), 0, rise - 0.1, 0));

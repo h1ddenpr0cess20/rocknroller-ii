@@ -1,3 +1,4 @@
+import { DRESSING } from './dressing.js';
 import { FURNITURE } from './furniture.js';
 import { canvas, cached, grilleTexture, random, texture, tiled } from './textures.js';
 
@@ -441,7 +442,7 @@ function table(GFX, { rise = 0.62 }) {
   return { group };
 }
 
-export const PROPS = { amp, case: roadCase, drums, speaker, bar, pool, jukebox, pinball, keg, table, ...FURNITURE };
+export const PROPS = { amp, case: roadCase, drums, speaker, bar, pool, jukebox, pinball, keg, table, ...FURNITURE, ...DRESSING };
 
 /**
  * The props of a venue, each over its tiles: { group, update(time, beat) }.
@@ -454,7 +455,7 @@ export const PROPS = { amp, case: roadCase, drums, speaker, bar, pool, jukebox, 
  * footprint is handed over the right way round. A desk's front is the side
  * its operator stands at.
  */
-export const FACING = new Set(['amp', 'drums', 'speaker', 'console', 'rack', 'jukebox', 'pinball', 'loo', 'dome', 'chairs', 'cooler', 'lamp', 'camera', 'chair', 'desk', 'cabinet', 'booth', 'organ', 'cannon', 'pod', 'statue', 'coffin', 'tombstone', 'sedan', 'piano', 'trough', 'chest', 'bookcase', 'mirror', 'craft']);
+export const FACING = new Set(['amp', 'drums', 'speaker', 'console', 'rack', 'jukebox', 'pinball', 'loo', 'dome', 'chairs', 'cooler', 'lamp', 'camera', 'chair', 'desk', 'cabinet', 'cannon', 'pod', 'statue', 'coffin', 'tombstone', 'piano', 'trough', 'chest', 'bookcase', 'mirror', 'craft', 'wheel']);
 
 /**
  * The way out of a footprint with the most open floor in front of it: [dx, dz].

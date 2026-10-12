@@ -86,7 +86,7 @@ export function premiere() {
   flat(g, curtain, 3, { look: 'curtain', breakAt: 6 });
   const check = coats.room(5, 5, { floor: 'carpet', wall: 'damask' });
   g.reel(...check.tile(3, 0));
-  g.pillar(...check.tile(3, 2), 1.1, { prop: 'rack' });
+  g.pillar(...check.tile(3, 2), 1.1, { prop: 'rail' });
   const doors = d.hall(4, { floor: 'carpet', wall: 'damask' });
   barred(g, doors, 2);
   d.turn('+z', { floor: 'carpet', wall: 'damask' });

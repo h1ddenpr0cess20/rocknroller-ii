@@ -152,7 +152,7 @@ export function noir() {
 
   // The warehouse: crates stacked, one bare bulb, goons, and Mr. Big.
   const store = d.room(21, 15, { floor: 'concrete', wall: 'corrugated' });
-  for (const [a, b] of [[4, -6], [4, 6], [18, -6], [18, 6]]) g.pillar(...store.tile(a, b), 0.9, { prop: 'case' });
+  for (const [a, b] of [[4, -6], [4, 6], [18, -6], [18, 6]]) g.pillar(...store.tile(a, b), 0.9, { prop: 'crate' });
   g.block(...store.rect(9, 3, -7, 1), 1.3, { prop: 'racking' });
   g.foe('mrbig', ...store.tile(14, 0), { range: 6 });
   g.popcorn(...store.tile(2, 0), 10).popcorn(...store.tile(7, -4), 10).popcorn(...store.tile(7, 4), 10).popcorn(...store.tile(12, -5), 10);

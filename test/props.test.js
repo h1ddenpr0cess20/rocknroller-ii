@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import * as GFX from '../src/vendor/gfx/index.js';
-import { FACING, openSide } from '../src/decor.js';
+import { FACING, openSide, PROPS } from '../src/decor.js';
 import { createGig, STEP, stepGig } from '../src/gig.js';
 import { VENUES, loadVenue } from '../src/venues/index.js';
 
@@ -43,6 +43,26 @@ test('props are smashed by a run at them, and stand up to a nudge', () => {
   assert.ok(p2.broken >= 0, 'a run at it smashes it');
   assert.equal(p2.box.solid, false);
   assert.ok(fast.hype.score > before, 'and that is worth some hype');
+});
+
+test('everything a set is dressed with is built, and stays inside its footprint', () => {
+  const box = new GFX.Box3();
+  for (let i = 0; i < VENUES.length; i++) {
+    const v = loadVenue(i);
+    for (const p of v.props.filter((q) => !q.free)) {
+      assert.ok(PROPS[p.kind], `${v.name}: there is a ${p.kind} to build`);
+      // Built facing +z: a prop with a front turned to face along x has its footprint the other way round.
+      const [dx] = FACING.has(p.kind) ? (p.face ?? openSide(v, p)) : [0];
+      const shape = dx ? { ...p, w: p.d, d: p.w } : p;
+      const made = PROPS[p.kind](GFX, { ...shape, rot: 0, venue: v });
+      made.group.updateMatrixWorld(true);
+      box.setFromObject(made.group);
+      const slack = 0.12;
+      assert.ok(box.min.x >= -shape.w / 2 - slack && box.max.x <= shape.w / 2 + slack, `${v.name}: the ${p.kind} at ${p.x},${p.z} fits across (${box.min.x.toFixed(2)}..${box.max.x.toFixed(2)} in ${shape.w})`);
+      assert.ok(box.min.z >= -shape.d / 2 - slack && box.max.z <= shape.d / 2 + slack, `${v.name}: the ${p.kind} at ${p.x},${p.z} fits deep (${box.min.z.toFixed(2)}..${box.max.z.toFixed(2)} in ${shape.d})`);
+      assert.ok(box.min.y >= -0.05, `${v.name}: the ${p.kind} stands on the floor`);
+    }
+  }
 });
 
 test('the building is not furniture: crowd barriers and the stands do not break', () => {

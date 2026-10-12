@@ -113,7 +113,7 @@ export function casting() {
   wardrobe.hall(3, { wall: 'stucco' });
   const rails = wardrobe.room(6, 7, { wall: 'stucco', floor: 'carpet' });
   g.pass(...rails.tile(3, 0));
-  g.pillar(...rails.tile(5, 3), 1.1, { prop: 'rack' });
+  g.pillar(...rails.tile(5, 3), 1.1, { prop: 'rail' });
   g.foe('extra', ...rails.tile(2, 2), { range: 4 });
   g.popcorn(...rails.tile(4, -2), 10);
   // And over the pit, along a plank, a second reel.
