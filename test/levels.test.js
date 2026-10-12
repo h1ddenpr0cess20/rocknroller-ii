@@ -6,8 +6,8 @@ import { THEMES } from '../src/music.js';
 import { loadVenue, VENUES } from '../src/venues/index.js';
 import { drive } from './helpers/autopilot.js';
 
-test('every set has three golden reels, a theme the score can play and people who exist', () => {
-  assert.ok(VENUES.length > 0);
+test('there are ten sets, and each has three golden reels, a theme the score can play and people who exist', () => {
+  assert.equal(VENUES.length, 10);
   for (let i = 0; i < VENUES.length; i++) {
     const venue = loadVenue(i);
     assert.equal(venue.act, i + 1, `${venue.name} is act ${i + 1}`);
