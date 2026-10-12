@@ -75,14 +75,14 @@ test('a strobe is on in bursts and off between them', () => {
   assert.ok(on > 0 && off > on, 'bursts, with rests between');
 });
 
-test('every neon sign is fixed to a wall that runs the whole width of it, below its top, clear of the gates and the speaker stacks', () => {
+test('every neon sign and marquee is fixed to a wall that runs the whole width of it, below its top, clear of the closed sets and the drops', () => {
   const top = (c) => Math.max(...c.h);
   // Every one that is wrong, to say all at once.
   const wrong = [];
   const check = (ok, what) => { if (!ok) wrong.push(what); };
   for (let i = 0; i < VENUES.length; i++) {
     const gig = createGig(GFX, i), v = gig.venue;
-    for (const f of v.fixtures.filter((q) => q.kind === 'neon')) {
+    for (const f of v.fixtures.filter((q) => q.kind === 'neon' || q.kind === 'marquee')) {
       const size = f.size ?? 0.55, name = `${v.name}: ${f.text}`;
       const m = mountSign(v, f, size);
       // How far it reaches along the wall either way, its backing board and all.

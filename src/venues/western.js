@@ -79,8 +79,8 @@ export function western() {
   // The saloon: the bar down the back, the piano, tables, and the extra who has been at the prop whiskey.
   const saloon = d.room(15, 11, { floor: 'planks', wall: 'clapboard' });
   g.block(...saloon.rect(3, 8, saloon.back * 5, 1), 0.9, { prop: 'bar' });
-  g.block(...saloon.rect(12, 2, saloon.back * 4, 1), 0.8, { prop: 'piano' });
-  for (const [a, b] of [[3, 1], [7, 3], [11, 0], [6, -1]]) g.pillar(...saloon.tile(a, b), 0.62, { prop: 'table' });
+  g.block(...saloon.rect(2, 2, -saloon.back * 4, 1), 0.8, { prop: 'piano' });
+  for (const [a, b] of [[5, 1], [8, 3], [10, -1]]) g.pillar(...saloon.tile(a, b), 0.62, { prop: 'table' });
   g.foe('drunk', ...saloon.tile(5, -2), { range: 5 }).foe('drunk', ...saloon.tile(10, 2), { range: 5 });
   g.foe('cowboy', ...saloon.tile(13, -1), { range: 5 });
   g.popcorn(...saloon.tile(2, -3), 10).popcorn(...saloon.tile(9, -3), 10).popcorn(...saloon.tile(13, 4), 10);
@@ -89,8 +89,8 @@ export function western() {
   wash(g, saloon, ['#ffb860', '#ff9a5a'], { cans: 2, program: 'static' });
   // Through the mirror at the end of the bar, which is sugar glass, as saloon mirrors are: the back room, and a reel.
   const back = branch(d, saloon, 12, 'back', 6);
-  const mirror = back.hall(4, BOARDS);
-  flat(g, mirror, 1, { look: 'glass', breakAt: 6 });
+  const mirror = back.hall(5, BOARDS);
+  flat(g, mirror, 3, { look: 'glass', breakAt: 6 });
   const den = back.room(5, 5, { floor: 'planks', wall: 'clapboard' });
   g.reel(...den.tile(3, 0));
   g.popcorn(...den.tile(1, -1), 10).popcorn(...den.tile(1, 1), 10);
