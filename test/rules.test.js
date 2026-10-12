@@ -7,6 +7,7 @@ import { goals, REELS, stars } from '../src/rating.js';
 import { closingSpeed, CRIT, resolveImpact } from '../src/smash.js';
 import { createStorage } from '../src/storage.js';
 import { FOES } from '../src/foes.js';
+import { CAST } from '../src/models/cast/index.js';
 
 const foe = (kind) => FOES[kind];
 
@@ -53,6 +54,18 @@ test('every foe can be smashed by a charge Rock can actually make', () => {
   for (const [kind, f] of Object.entries(FOES)) {
     assert.ok(f.toughness <= 12, `${kind} needs ${f.toughness}`);
     assert.ok(f.power > 0 && f.hype > 0 && f.radius > 0 && f.speed > 0, `${kind} has stats`);
+  }
+});
+
+test('everyone in the way is sculpted, and nobody is sculpted who is not in the way', () => {
+  assert.deepEqual(Object.keys(CAST).sort(), Object.keys(FOES).sort());
+  for (const [kind, def] of Object.entries(CAST)) {
+    assert.equal(def.name, kind);
+    assert.ok(def.bones.some(([name, parent]) => name === 'root' && parent === null), `${kind} has a root`);
+    assert.equal(typeof def.sculpt, 'function');
+    assert.equal(typeof def.animate, 'function');
+    // The bosses stand head and shoulders over everyone else.
+    if (FOES[kind].boss) assert.ok(def.scale >= 2.4, `${kind} is big`);
   }
 });
 

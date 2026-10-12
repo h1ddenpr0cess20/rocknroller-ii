@@ -1,25 +1,28 @@
 import { bands } from '../skins.js';
 import { cloth, person } from './person.js';
+import { bowler, moustache } from './wardrobe.js';
 
 /**
- * Drunk Guy: a loud Hawaiian shirt, a paper lei, shorts, flip-flops, a
- * face the colour of a boiled ham, and a red cup he is trying to keep
- * upright. Sways. Loves you, man. About 0.9 tiles tall.
+ * The Saloon Extra: a dusty bowler, a striped shirt with sleeve garters, a
+ * waistcoat with one button done up wrong, a red nose, a walrus moustache
+ * and a bottle he was told was cold tea. It was not. Sways. Loves you,
+ * partner. About 0.9 tiles tall.
  */
 
-const shirt = bands(1, 0.06, '#ff8a3a', '#ffe14a', 0.5, 0.3);
+const shirt = bands(0, 0.03, '#e8dcc8', '#9a5a5a', 0.3, 0.2);
+const vest = cloth('#4a3a52', '#2a2030');
 
 export default person({
   name: 'drunk',
   scale: 1.42,
-  b: 1.12,
-  shape: { legs: 0.86, girth: 1.22, head: 1.04 },
-  belly: 1.3,
-  skin: '#e89a82',
-  look: { belt: '#3a2a1a', sole: '#2a6a9a', torso: shirt, sleeve: shirt, cuff: '#e89a82', legs: cloth('#c9b27a'), boot: '#e89a82' },
-  mats: { torso: 'cloth', sleeve: 'cloth', cuff: 'skin', legs: 'cloth', boot: 'skin' },
-  face: { eyeColor: '#3a5a3a', brow: '#4a2e1a', blush: 1.0, jaw: 1.1 },
-  hair: { color: cloth('#5a3a1e', '#3a2410'), locks: [[[0.05, 0.77, 0.0], [0.09, 0.78, 0.08], 0.03], [[-0.05, 0.77, 0.01], [-0.1, 0.78, 0.07], 0.03], [[0, 0.79, -0.05], [0.02, 0.82, -0.02], 0.03]] },
+  b: 1.1,
+  shape: { legs: 0.88, girth: 1.16, head: 1.04 },
+  belly: 1.1,
+  skin: '#e2a084',
+  look: { torso: vest, sleeve: shirt, cuff: shirt, legs: cloth('#6a5a48', '#4a3e30'), boot: '#3a2414', belt: '#2a1a10', buckle: '#a89a6a' },
+  mats: { torso: 'cloth', sleeve: 'cloth', cuff: 'cloth', legs: 'cloth', boot: 'leather' },
+  face: { eyeColor: '#3a5a3a', brow: '#5a3a1e', blush: 1.0, jaw: 1.08 },
+  hair: { color: cloth('#6a4a2e', '#3a2810'), locks: [[[0.08, 0.7, -0.02], [0.11, 0.64, -0.06], 0.025], [[-0.08, 0.7, -0.02], [-0.11, 0.64, -0.06], 0.025]] },
   style: {
     attack: 'smite', heavy: 0.2, twist: 0,
     after(k, { clip, time, seed }) {
@@ -30,29 +33,28 @@ export default person({
       k.turn('hips', 0, 0, sway * 0.07);
       k.turn('chest', 0.05, sway * -0.18, -sway * 0.12);
       k.turn('head', 0.1 + Math.sin(T * 0.9) * 0.1, Math.sin(T * 0.8) * 0.4, -sway * 0.12);
-      // The cup held out in front, slopping.
+      // The bottle held up, toasting nobody.
       if (clip !== 'attack') {
-        k.turn('armR', -0.75 + Math.sin(T * 2.2) * 0.08, 0, -0.1);
-        k.turn('foreR', -1.1, 0, 0);
+        k.turn('armR', -1.0 + Math.sin(T * 2.2) * 0.12, 0, -0.15);
+        k.turn('foreR', -1.0, 0, 0);
       }
     },
   },
   extras(s, J) {
-    const h = J.handR;
+    bowler(s, { color: '#4a3e34', band: '#2a201a' });
+    moustache(s, { color: '#6a4a2e', wide: 1.3 });
+    // The red nose.
+    s.sphere([0, 0.648, 0.118], 0.014, { color: '#d8504a', mat: 'skin', bone: 'head', k: 0.01 });
     s.part('kit', () => {
-      // The red cup, with a head of foam.
-      s.cylinder([h[0], h[1] + 0.035, h[2] + 0.012], 0.03, 0.046, { color: '#d9232f', mat: 'plastic', bone: 'handR', k: 0.003, round: 0.005 });
-      s.sphere([h[0], h[1] + 0.085, h[2] + 0.012], 0.03, { color: '#fff6dc', mat: 'cloth', bone: 'handR', k: 0.012 });
-      // A paper lei of orange flowers.
-      for (let i = 0; i < 10; i++) {
-        const a = (i / 10) * Math.PI * 2;
-        s.sphere([Math.sin(a) * 0.082, 0.5 - Math.max(0, Math.cos(a)) * 0.07, Math.cos(a) * 0.075 + 0.01], 0.014, { color: i % 2 ? '#ff2d95' : '#ffffff', mat: 'cloth', bone: 'chest', k: 0.004 });
-      }
-      // Flip-flops.
-      for (const m of [1, -1]) {
-        const a = J[m > 0 ? 'ankleL' : 'ankleR'];
-        s.ellipsoid([a[0], 0.008, a[2] + 0.04], [0.036, 0.008, 0.07], { color: '#3a9ad9', mat: 'rubber', bone: m > 0 ? 'footL' : 'footR', k: 0.004 });
-      }
+      // Sleeve garters, and a buttoned-wrong waistcoat front.
+      for (const m of [1, -1]) s.torus([m * 0.122, 0.44, 0.0], 0.03, 0.005, { color: '#2a2a30', mat: 'cloth', bone: m > 0 ? 'armL' : 'armR', k: 0.002, rot: [0, 0, m * 0.3] });
+      for (const [y, x] of [[0.47, 0.004], [0.43, -0.004], [0.39, 0.006]]) s.sphere([x, y, 0.08], 0.006, { color: '#a89a6a', mat: 'metal', bone: 'chest', k: 0.001 });
+      // The bottle: brown glass, a long neck, a cork.
+      const h = J.handR;
+      s.cylinder([h[0], h[1] + 0.04, h[2] + 0.012], 0.024, 0.05, { color: '#5a3010', mat: 'glass', bone: 'handR', k: 0.006, round: 0.008 });
+      s.limb([h[0], h[1] + 0.09, h[2] + 0.012], [h[0], h[1] + 0.14, h[2] + 0.012], 0.01, 0.008, { color: '#5a3010', mat: 'glass', bone: 'handR', k: 0.006 });
+      s.cylinder([h[0], h[1] + 0.148, h[2] + 0.012], 0.007, 0.008, { color: '#c8a070', mat: 'leather', bone: 'handR', k: 0.002 });
+      s.box([h[0], h[1] + 0.04, h[2] + 0.034], [0.016, 0.02, 0.002], 0.002, { color: '#e8dcb8', mat: 'paper', bone: 'handR', k: 0.001 });
     });
   },
 });
