@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0a10">
+<meta name="description" content="Rock 'n' Roller II: Hollywood Nights. A granite boulder rolls through the night shoots of a Hollywood studio, smashing the annoying people in the way: a western, a musical, a horror picture, a black-and-white noir in the rain, and the premiere of Like a Rock.">
+<title>Rock 'n' Roller II: Hollywood Nights (reels)</title>
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/src/styles.css">
+<link rel="stylesheet" href="/src/reel/reel.css">
+<style>
+  /* No game banner under the opening line. */
+  body.hooked #banner { visibility: hidden; }
+
+  /* The title's logo on the card (the game scopes its size to the title screen). */
+  #card .logo .top { font-size: 46px; white-space: nowrap; }
+  #card .logo .bottom { font-size: 52px; }
+  #card .logo .tag { font-size: 13px; letter-spacing: 0.3em; }
+  #card .logo .presents { font-size: 12px; letter-spacing: 0.4em; }
+
+  /* The phone layout's own overlaps, on film: the set's name ran under the buzz, and Rock's line under the PAUSE and SOUND buttons. */
+  .plate { left: 10px; max-width: 160px; padding: 6px 12px 6px 10px; }
+  .plate .act { font-size: 10px; letter-spacing: 0.18em; }
+  .plate .name { font-size: 16px; letter-spacing: 0.02em; }
+  .hype { left: 57%; }
+  #say { bottom: 176px; }
+</style>
+</head>
+<body>
+<div id="view"></div>
+<div id="vignette" aria-hidden="true"></div>
+<div id="grain" aria-hidden="true"></div>
+<div id="strobe" aria-hidden="true"></div>
+<div id="ui"></div>
+<pre id="error" hidden></pre>
+<script type="module" src="/src/reel/recorder.js"></script>
+</body>
+</html>

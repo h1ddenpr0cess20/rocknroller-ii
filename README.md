@@ -211,6 +211,7 @@ Other things in the box:
 node scripts/map.js 7            # a set as text (they count from 1); --overlaps shows two pieces dug over each other
 node scripts/drive.js 7          # put the autopilot through a set and say how it went
 node scripts/bake.js             # bake every model and say what came out
+node scripts/reel.js [name]      # film the vertical gameplay reels into reels/ (the autopilot plays; needs ffmpeg and a Chromium)
 ```
 
 `models.html` is a turntable for the cast (`?m=director,mrbig,mogul`), and in
