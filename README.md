@@ -9,10 +9,12 @@ own film stock, lit by its own rig, and scored by its own band, and all of it
 keeps the beat.
 
 The sequel to [Rock 'n' Roller](https://github.com/h1ddenpr0cess20/rocknroller),
-on the same engine (the renderer, physics, tiled sets and camera), with the
-sets, cast, props, light rig, score and rules all redone for the pictures.
-The title and the picture inside it are nods to two Bob Seger songs,
-"Hollywood Nights" and "Like a Rock". Only their names are used.
+on the same engine, now the
+[Madness Engine](https://github.com/h1ddenpr0cess20/madness-engine) (the
+renderer, physics, camera, stage and sound), with the sets, cast, props,
+light rig, score and rules all redone for the pictures. The title and the
+picture inside it are nods to two Bob Seger songs, "Hollywood Nights" and
+"Like a Rock". Only their names are used.
 
 ![The title screen](docs/screenshots/title.png)
 
@@ -130,7 +132,8 @@ cooler, brighter one for space, and for the noir, hard black and white with heav
 included. A fine grain and a vignette sit over every set, as on a print. The
 noir also has rain, falling in lines and splashing on the floor.
 
-The rig (`src/lightshow.js`) keeps the beat of the score:
+The rig (the engine's `scenery/lightshow.rocknroller-ii`) keeps the beat of
+the score:
 
 | Fixture | What it does |
 |---|---|
@@ -146,30 +149,30 @@ paparazzi's flashbulbs, down to a glow.
 
 ## The score
 
-Played live in Web Audio (`src/music.js`), with no audio files: a theme per
-genre, each with its own drums, bass line, comping and lead. The main title
-(the Backlot, the title screen, and the Premiere with the brass out) is a
-night drive at 146 bpm over a driving, pumping eighth-note bass that steps up
-into each change. Bossa nova and vibes in the casting office; a train beat and
-a whistle for the Western; a swinging big band and a trumpet for the Musical;
-four on the floor and a square lead in space; an organ and a theremin for the
-horror; brushes, a walking bass and a sax for the noir; a march and a fiddle
-for the pirates; chugging guitars for the action picture. The beat clock
-drives the hazards and the lights.
+Played live in Web Audio (the engine's `music/band.rocknroller-ii`), with no
+audio files: a theme per genre, each with its own drums, bass line, comping
+and lead. The main title (the Backlot, the title screen, and the Premiere with
+the brass out) is a night drive at 146 bpm over a driving, pumping eighth-note
+bass that steps up into each change. Bossa nova and vibes in the casting
+office; a train beat and a whistle for the Western; a swinging big band and a
+trumpet for the Musical; four on the floor and a square lead in space; an
+organ and a theremin for the horror; brushes, a walking bass and a sax for the
+noir; a march and a fiddle for the pirates; chugging guitars for the action
+picture. The beat clock drives the hazards and the lights.
 
 ## The cast
 
-Sculpted in code (`src/models/cast/`) and baked in background workers while
-the page loads. The crew and the hopefuls: extras, production assistants,
-paparazzi, studio tourists, autograph hunters, agents, make-up artists, film
-critics, influencers, ushers, studio security, doormen, a costume character
-and stunt doubles. And the people in the pictures: a cowboy, a saloon extra, a
-pantomime horse, hoofers in top hats, a tin robot, a rubber alien, camera
-drones, zombie extras, the Mummy, a rubber bat on its wire, hoods, muscle, a
-flatfoot, the dame, a newsie, pirates and an animatronic parrot. They share a
-costume department (`wardrobe.js`): fedoras, stetsons, top hats, berets,
-peaked caps, tricorns, bowlers, glasses, suit fronts, moustaches, beards,
-eye patches and bandanas.
+Sculpted in code (the engine's `characters/`, listed in `src/models/cast/`)
+and baked in background workers while the page loads. The crew and the
+hopefuls: extras, production assistants, paparazzi, studio tourists, autograph
+hunters, agents, make-up artists, film critics, influencers, ushers, studio
+security, doormen, a costume character and stunt doubles. And the people in
+the pictures: a cowboy, a saloon extra, a pantomime horse, hoofers in top
+hats, a tin robot, a rubber alien, camera drones, zombie extras, the Mummy, a
+rubber bat on its wire, hoods, muscle, a flatfoot, the dame, a newsie, pirates
+and an animatronic parrot. They share a costume department (`wardrobe.js`):
+fedoras, stetsons, top hats, berets, peaked caps, tricorns, bowlers, glasses,
+suit fronts, moustaches, beards, eye patches and bandanas.
 
 ![The cast](docs/screenshots/cast.jpg)
 
@@ -185,6 +188,24 @@ The props are built from plain shapes in `src/dressing.js`: cameras with
 their reels turning, lamps on stands, director's chairs, craft services,
 forties sedans, golf carts, tombstones, coffins, sleep pods, cannons, a ship's
 wheel, treasure chests, stunt airbags and the giant gold statue.
+
+## On the engine
+
+The game runs on the
+[Madness Engine](https://github.com/h1ddenpr0cess20/madness-engine), which
+`npm install` fetches from GitHub. The renderer (WebGPU, or WebGL 2), the
+physics, the controls, the arcade camera, the stage, the film, the sound, the
+flying bits and the weather, the save slot and the sculpting kit are the
+engine's, and so are Rock (`heroes/rock`), the rig
+(`scenery/lightshow.rocknroller-ii`), the score (`music/band.rocknroller-ii`),
+the sets' textures (`textures/venue.rocknroller-ii`), the cast and props
+(`characters/…`, `props/…`) and each set's mood (`moods/casting` and the rest:
+its light, sky, reflections and film stock), all from the engine's library.
+What is left here is the game: the sets, the rules, the machinery, the props
+and the HUD, and the game's own sounds and bits on the engine's (`audio.js`,
+`effects.js`). The rosters (`src/models/cast/index.js`,
+`src/models/props/index.js`) say who is in the game and take each one from the
+library.
 
 ## Develop
 
@@ -220,7 +241,8 @@ the browser console `rocknroller.debug.venue(i)` jumps to a set and
 ## Credits
 
 Rock is [Rock](https://github.com/h1ddenpr0cess20/rock)'s boulder. The engine
-is [Rock 'n' Roller](https://github.com/h1ddenpr0cess20/rocknroller)'s, from
-[dungeon-roller](https://github.com/h1ddenpr0cess20/dungeon-roller). Type is
+is the [Madness Engine](https://github.com/h1ddenpr0cess20/madness-engine),
+which grew out of [Rock 'n' Roller](https://github.com/h1ddenpr0cess20/rocknroller)'s
+and [dungeon-roller](https://github.com/h1ddenpr0cess20/dungeon-roller). Type is
 Anton, Barlow Condensed and Limelight, from [Fontsource](https://fontsource.org).
 See also [other games](docs/other-games.md).

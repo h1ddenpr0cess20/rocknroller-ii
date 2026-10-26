@@ -352,30 +352,12 @@ kbd {
   .logo .flicker { animation: none; }
 }
 
-/* ———————————————————————————————————— the film stock */
-
 /*
- * Every set is shot on its own stock: the picture (and only the picture) is
- * graded by the set's `look.grade`, and a fine grain dances over it all, as
- * on a print. The noir is black and white, hard, and grainier.
+ * Every set is shot on its own stock, graded on the picture alone, with a
+ * fine grain dancing over it as on a print; the noir is black and white,
+ * hard and grainier, and the interface is shot on it too. That is the set's
+ * mood, and the engine's film puts it on the picture (`stage.js`).
  */
-#view[data-grade="noir"] canvas { filter: grayscale(1) contrast(1.32) brightness(1.06); }
-#view[data-grade="sepia"] canvas { filter: sepia(0.42) saturate(1.15) contrast(1.06); }
-#view[data-grade="technicolor"] canvas { filter: saturate(1.35) contrast(1.08); }
-#view[data-grade="horror"] canvas { filter: saturate(0.6) hue-rotate(-12deg) contrast(1.12) brightness(0.95); }
-#view[data-grade="scifi"] canvas { filter: saturate(1.15) hue-rotate(8deg) contrast(1.05); }
 
-#grain {
-  position: fixed; inset: -50%; pointer-events: none; opacity: 0.07; mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  animation: grain 0.5s steps(4) infinite;
-}
-#vignette { position: fixed; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.5) 100%); }
-body.noir #grain { opacity: 0.16; }
-/* In the noir, the interface is shot on the same stock as the picture. */
-body.noir #ui, body.noir .corner, body.noir #rev-button { filter: grayscale(1) contrast(1.15); }
-body.noir #vignette { background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.72) 100%); }
-@keyframes grain { 0% { transform: translate(0, 0); } 25% { transform: translate(-7%, 4%); } 50% { transform: translate(5%, -6%); } 75% { transform: translate(-3%, -2%); } 100% { transform: translate(0, 0); } }
-@media (prefers-reduced-motion: reduce) { #grain { animation: none; } }
 /* No keyboard on a phone: the rev meter doesn't say Space. */
 @media (pointer: coarse) { .meters .label kbd { display: none; } }
