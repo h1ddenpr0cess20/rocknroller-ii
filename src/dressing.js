@@ -1,4 +1,4 @@
-import { random } from './textures.js';
+import { random } from 'madness-engine/textures/venue.rocknroller-ii';
 
 /**
  * Set dressing: what the film sets are furnished with (see decor.js, which
