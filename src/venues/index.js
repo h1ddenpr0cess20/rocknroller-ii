@@ -17,5 +17,6 @@ import { western } from './western.js';
 export const VENUES = [casting, backlot, western, musical, scifi, horror, noir, pirate, action, premiere];
 
 export function loadVenue(index) {
-  return VENUES[index]();
+  // The rig's lights on posts stood where nothing walks or rolls into them.
+  return VENUES[index]().settleRig();
 }
