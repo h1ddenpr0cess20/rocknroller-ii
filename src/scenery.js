@@ -1,6 +1,13 @@
 import { BELT } from './gig.js';
-import { canvas, texture, beltTexture, cached, floorTexture, wallTexture } from 'madness-engine/textures/venue.rocknroller-ii';
+import { canvas, texture, beltTexture, cached, floorTexture, wallTexture, bill } from 'madness-engine/textures/venue';
 import { createZapMaterial } from './zap.js';
+
+// The studio's posters: the pictures it has made, and the one Rock is making, coming soon.
+bill({
+  bands: ['LIKE A ROCK', 'HOLLYWOOD NIGHTS', 'THE MALTESE PEBBLE', 'A FISTFUL OF GRAVEL', 'STONE COLD', 'GONE WITH THE GRIND', 'ROCKY ROAD', 'THE BIG ROLL', 'GRANITE', 'SLAB', 'NIGHT MOVES', 'CITIZEN QUARRY'],
+  headline: 'LIKE A ROCK',
+  badge: 'SOON',
+});
 
 /**
  * The set as it is drawn: floors (a layer for each sort — concrete, stage
