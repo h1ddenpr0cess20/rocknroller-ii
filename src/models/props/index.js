@@ -1,6 +1,6 @@
 import bucket from 'madness-engine/props/bucket';
 import clapper from 'madness-engine/props/clapper';
-import pass from 'madness-engine/props/pass.rocknroller-ii';
+import pass from 'madness-engine/props/pass';
 import popcorn from 'madness-engine/props/popcorn';
 import reel from 'madness-engine/props/reel';
 import tape from 'madness-engine/props/tape';
