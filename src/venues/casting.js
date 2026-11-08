@@ -1,6 +1,6 @@
-import { digger } from '../dig.js';
+import { digger } from 'madness-engine/venue/dig';
 import { Venue } from '../venue.js';
-import { across, backTile, barred, flat, pick, toBack, wallTile } from './helpers.js';
+import { across, backTile, barred, flat, pick, toBack, wallTile } from 'madness-engine/venue/helpers';
 
 /**
  * Reel 1: The Casting Call. Where Rock starts: the studio's casting office,

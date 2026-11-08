@@ -1,6 +1,6 @@
-import { digger } from '../dig.js';
+import { digger } from 'madness-engine/venue/dig';
 import { Venue } from '../venue.js';
-import { barred, branch, centre, facingRot, flat, toBack, wallTile, wash } from './helpers.js';
+import { barred, branch, centre, facingRot, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
 
 /**
  * Scene 10: The Premiere. The last night of the shoot, and the first night

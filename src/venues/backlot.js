@@ -1,6 +1,6 @@
-import { digger } from '../dig.js';
+import { digger } from 'madness-engine/venue/dig';
 import { Venue } from '../venue.js';
-import { across, backTile, barred, branch, centre, flat, toBack, wallTile, wash } from './helpers.js';
+import { across, backTile, barred, branch, centre, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
 
 /**
  * Reel 2: The Backlot. The studio after dark, searchlights over the hills:

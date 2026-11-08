@@ -1,14 +1,14 @@
 import { createEffects } from './effects.js';
 import { createGig, PROP_HYPE, putBack, resultOf, STEP, stepGig, toGround } from './gig.js';
-import { comboAt, earn, windowLeft } from './hype.js';
-import { HARM } from './integrity.js';
+import { comboAt, earn, windowLeft } from 'madness-engine/venue/hype';
+import { HARM } from 'madness-engine/venue/integrity';
 import { createLightshow } from 'madness-engine/scenery/lightshow.rocknroller-ii';
 import { createProps } from 'madness-engine/scenery/gear/decor';
 import { stars } from './rating.js';
 import { createGraniteRock } from 'madness-engine/heroes/rock-granite';
-import { ROCK_RADIUS } from './roll.js';
+import { BALL_RADIUS } from 'madness-engine/venue/roll';
 import { createExit, createVenueMeshes } from './scenery.js';
-import { GRADES } from './smash.js';
+import { GRADES } from './grades.js';
 import { say } from './quips.js';
 import { BOARD_DETAIL } from './foes.js';
 import { VENUES } from './venues/index.js';
@@ -45,7 +45,7 @@ const TITLE_TURN = 0.16;
 export function createGame({ stage, hud, input, audio, storage, loading }) {
   const { GFX, scene, view } = stage;
   const effects = createEffects(GFX, scene);
-  const rock = createGraniteRock(GFX, { radius: ROCK_RADIUS, colour: 'grey' });
+  const rock = createGraniteRock(GFX, { radius: BALL_RADIUS, colour: 'grey' });
   rock.group.traverse((o) => { if (o.isMesh) o.castShadow = true; });
   scene.add(rock.group);
 
@@ -169,7 +169,7 @@ export function createGame({ stage, hud, input, audio, storage, loading }) {
     hud.play(venue);
     hud.banner(`REEL ${venue.act}\n${venue.name.toUpperCase()}`, 'big', venue.intro);
     hud.hype(0);
-    hud.integrity(gig.rock);
+    hud.integrity(gig.hero);
     hud.carried({});
     hud.say(say('ready', voice()), 'Rock', 2.4);
     audio.wake();
@@ -208,7 +208,7 @@ export function createGame({ stage, hud, input, audio, storage, loading }) {
     audio.stopMusic();
     audio.over();
     rock.group.visible = false;
-    hud.integrity(gig.rock);
+    hud.integrity(gig.hero);
     const q = say('shattered', voice());
     setTimeout(() => {
       if (state !== 'over') return;
@@ -251,7 +251,7 @@ export function createGame({ stage, hud, input, audio, storage, loading }) {
     for (const h of out.hits) hit(h);
     for (const e of out.events) happened(e);
     if (out.hurt && out.hurt.how !== 'foe') {
-      hud.integrity(gig.rock);
+      hud.integrity(gig.hero);
       if (out.hurt.how === 'burnt') {
         const steam = gig.venue.look.pyro === 'steam';
         if (steam) effects.steam(b.x, b.y - b.r, b.z);
@@ -291,14 +291,14 @@ export function createGame({ stage, hud, input, audio, storage, loading }) {
     if (out.door === 'opened') { audio.gate(); hud.banner('SET OPEN'); hud.carried(carriedNow()); }
     if (out.door === 'locked') { audio.locked(); hud.banner('CLOSED SET\nfind the studio pass'); hud.say(say('locked', voice()), 'Rock', 2.6); }
     if (out.door === 'sturdy') { audio.locked(); hud.say(say('sturdy', voice()), 'Rock', 2.6); }
-    if (out.retake) {
+    if (out.revived) {
       effects.sparkle(b.x, b.y, b.z, '#ffffff');
       effects.sparkle(b.x, b.y, b.z, '#ffe08a');
       audio.retake();
       hud.banner('TAKE TWO!\nfrom the top', 'big');
       hud.say(say('retake', voice()), 'Rock', 3);
       rock.react('proud', 1.4);
-      hud.integrity(gig.rock);
+      hud.integrity(gig.hero);
       hud.carried(carriedNow());
     }
     if (out.outcome === 'exit') finish();
@@ -357,7 +357,7 @@ export function createGame({ stage, hud, input, audio, storage, loading }) {
     }
     if (h.damage > 0) {
       effects.chips(b.x, b.y, b.z, Math.min(14, 3 + h.damage));
-      hud.integrity(gig.rock);
+      hud.integrity(gig.hero);
     }
     if (f.stats.boss && !h.down) hud.banner(`${f.stats.name.toUpperCase()}\n${Math.max(0, Math.ceil(f.hp))} to go`, 'normal');
   }
@@ -373,7 +373,7 @@ export function createGame({ stage, hud, input, audio, storage, loading }) {
     } else if (p.kind === 'tape') {
       effects.sparkle(p.x, p.y, p.z, '#cfd6e2');
       audio.tape();
-      hud.integrity(gig.rock);
+      hud.integrity(gig.hero);
       hud.banner(`GAFFER TAPE\n+${p.amount} integrity`, 'normal');
       hud.say(say('tape', voice()), 'Rock', 2.4);
     } else if (p.kind === 'clapper') {
@@ -391,14 +391,14 @@ export function createGame({ stage, hud, input, audio, storage, loading }) {
       effects.popcorn(p.x, p.y, p.z, 14);
       effects.confetti(p.x, p.y, p.z, 30);
       audio.reel();
-      hud.banner(`GOLDEN REEL\n${gig.stats.reels} of 3`, 'normal');
+      hud.banner(`GOLDEN REEL\n${gig.stats.tokens} of 3`, 'normal');
       hud.say(say('reel', voice()), 'Rock', 3);
       hud.hype(gig.hype.score, { pulse: true });
     }
     hud.carried(carriedNow());
   }
 
-  const carriedNow = () => ({ reels: gig.stats.reels, passes: gig.passes, takes: gig.rock.takes });
+  const carriedNow = () => ({ reels: gig.stats.tokens, passes: gig.passes, takes: gig.hero.revives });
 
   /** Sparks off the zap floor near Rock, a few a second. */
   function zapSparks(dt) {
@@ -508,7 +508,7 @@ export function createGame({ stage, hud, input, audio, storage, loading }) {
     // The HUD, as it changes.
     if (state !== 'title') {
       hud.rev(gig.rev / 100, gig.revving);
-      if (Math.abs(gig.rock.hp - lastHp) > 0.01) { hud.integrity(gig.rock); lastHp = gig.rock.hp; }
+      if (Math.abs(gig.hero.hp - lastHp) > 0.01) { hud.integrity(gig.hero); lastHp = gig.hero.hp; }
       const c = comboAt(gig.hype, gig.time);
       if (c !== lastCombo && c === 0) hud.hype(gig.hype.score, { combo: 0 });
       else if (c > 0) hud.hype(gig.hype.score, { combo: c, multiplier: Math.min(5, c), left: windowLeft(gig.hype, gig.time) });
