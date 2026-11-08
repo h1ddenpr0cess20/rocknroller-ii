@@ -19,7 +19,7 @@ test('every set can be played through to Rock\'s mark in one piece, with all its
     const reels = r.gig.actors.pickups.filter((p) => p.kind === 'reel');
     assert.equal(reels.length, REELS, `${name} hides ${REELS} reels`);
     assert.ok(reels.every((p) => p.taken), `${name}: every reel can be got`);
-    assert.ok(r.gig.rock.hp > 0, `${name}: Rock got there whole`);
+    assert.ok(r.gig.hero.hp > 0, `${name}: Rock got there whole`);
   }
 });
 

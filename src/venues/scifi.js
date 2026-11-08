@@ -1,6 +1,6 @@
-import { digger } from '../dig.js';
+import { digger } from 'madness-engine/venue/dig';
 import { Venue } from '../venue.js';
-import { across, backTile, barred, branch, centre, flat, frontHeading, toBack, wallTile, wash } from './helpers.js';
+import { across, backTile, barred, branch, centre, flat, frontHeading, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
 
 /**
  * Scene 5: The Space Picture. A starship built on Stage 12 out of plywood

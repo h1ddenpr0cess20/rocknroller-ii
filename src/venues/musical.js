@@ -1,6 +1,6 @@
-import { digger } from '../dig.js';
+import { digger } from 'madness-engine/venue/dig';
 import { Venue } from '../venue.js';
-import { across, backTile, barred, branch, centre, flat, toBack, wallTile, wash } from './helpers.js';
+import { across, backTile, barred, branch, centre, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
 
 /**
  * Scene 4: The Musical. Sound Stage 4, the big number, shot in Technicolor:
