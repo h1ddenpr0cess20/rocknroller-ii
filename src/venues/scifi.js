@@ -1,6 +1,6 @@
 import { digger } from 'madness-engine/venue/dig';
 import { Venue } from '../venue.js';
-import { across, backTile, barred, branch, centre, flat, frontHeading, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
+import { across, backTile, barred, branch, center, flat, frontHeading, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
 
 /**
  * Scene 5: The Space Picture. A starship built on Stage 12 out of plywood
@@ -156,7 +156,7 @@ export function scifi() {
   flat(g, skyHall, 3, { look: 'backdrop' });
   const nook = crater.room(5, 5, { floor: 'dirt', wall: 'flats' });
   g.reel(...nook.tile(3, 0));
-  void backTile; void centre; void toBack;
+  void backTile; void center; void toBack;
   d.hall(3, { floor: 'dirt', wall: 'stone' });
   d.exit(3);
   return g;

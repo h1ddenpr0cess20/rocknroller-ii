@@ -1,6 +1,6 @@
 import { digger } from 'madness-engine/venue/dig';
 import { Venue } from '../venue.js';
-import { across, backTile, barred, branch, centre, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
+import { across, backTile, barred, branch, center, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
 
 /**
  * Reel 2: The Backlot. The studio after dark, searchlights over the hills:
@@ -157,7 +157,7 @@ export function backlot() {
   const back = d.room(9, 9, STREET);
   g.foe('tourist', ...back.tile(4, 0), { range: 4 });
   g.light('klieg', ...back.tile(7, back.back * 3), { yaw: 0.6, sweep: 0.9, shift: 2 });
-  void centre; void toBack;
+  void center; void toBack;
   d.hall(2, STREET);
   d.exit(3);
   return g;
