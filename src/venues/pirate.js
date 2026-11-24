@@ -1,6 +1,6 @@
 import { digger } from 'madness-engine/venue/dig';
 import { Venue } from '../venue.js';
-import { across, backTile, barred, branch, centre, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
+import { across, backTile, barred, branch, center, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
 
 /**
  * Scene 8: The Swashbuckler. A galleon built full size in the studio's big
@@ -135,7 +135,7 @@ export function pirate() {
   const hoard = cave.room(5, 5, { floor: 'dirt', wall: 'stone' });
   g.reel(...hoard.tile(3, 0));
   g.pillar(...hoard.tile(3, 2), 0.7, { prop: 'chest' });
-  void centre; void toBack;
+  void center; void toBack;
   d.hall(3, { floor: 'dirt', wall: 'fence' });
   d.exit(3);
   return g;

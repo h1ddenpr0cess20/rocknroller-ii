@@ -1,6 +1,6 @@
 import { digger } from 'madness-engine/venue/dig';
 import { Venue } from '../venue.js';
-import { barred, branch, centre, facingRot, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
+import { barred, branch, center, facingRot, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
 
 /**
  * Scene 10: The Premiere. The last night of the shoot, and the first night
@@ -142,7 +142,7 @@ export function premiere() {
   const projection = booth.room(5, 5, { floor: 'concrete', wall: 'block' });
   g.reel(...projection.tile(2, 0));
   g.block(...projection.rect(3, 1, -1, 1), 1.0, { prop: 'camera' });
-  void centre;
+  void center;
   d.hall(3, { floor: 'planks', wall: 'curtain' });
   d.exit(3);
   return g;

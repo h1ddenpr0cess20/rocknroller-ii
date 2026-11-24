@@ -39,7 +39,7 @@ export const NOIR = Object.freeze({
   smash: ['Down like a bad alibi.', 'Another face in the rain. Not for long.', 'They had it coming. Everybody does, in this town.', 'I rolled on. The rain didn\'t care. Neither did I.'],
   crit: ['Never saw me coming. Nobody ever sees the rock.', 'Flat as last week\'s beer. And twice as bitter.'],
   bonk: ['Harder than they looked. So was I.', 'I needed a run at it. I always do.'],
-  tap: ['I bounced off like a bad cheque.', 'Too slow. The city eats the slow ones.'],
+  tap: ['I bounced off like a bad check.', 'Too slow. The city eats the slow ones.'],
   fell: ['The street gave way. The street always does.', 'Down. Like the rain. Like everything.'],
   zapped: ['Live wire. I was warned. I didn\'t listen.', 'Electric. Like trouble.'],
   crushed: ['It came down out of the dark. Things do.'],

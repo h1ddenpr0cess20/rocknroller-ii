@@ -1,6 +1,6 @@
 import { digger } from 'madness-engine/venue/dig';
 import { Venue } from '../venue.js';
-import { across, backTile, barred, branch, centre, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
+import { across, backTile, barred, branch, center, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
 
 /**
  * Scene 6: The Horror Picture. The haunted house on Stage 13, every bit of
@@ -76,7 +76,7 @@ export function horror() {
   for (const k of [2, 6]) candle(hall, k);
   g.foe('makeup', ...hall.tile(4, 2), { range: 5 });
   g.popcorn(...hall.tile(2, -3), 10).popcorn(...hall.tile(6, 4), 10);
-  g.light('chandelier', ...centre(hall), { height: 3.2, radius: 4, color: '#ffc890' });
+  g.light('chandelier', ...center(hall), { height: 3.2, radius: 4, color: '#ffc890' });
   d.hall(4, HOUSE);
   d.turn('+x', HOUSE);
 
@@ -144,7 +144,7 @@ export function horror() {
   g.foe('bat', ...plank.tile(3, 0), { path: [plank.tile(1, 0), plank.tile(5, 0)] });
   const altar = pit.room(5, 5, { floor: 'cobble', wall: 'stone' });
   g.reel(...altar.tile(2, 0));
-  g.light('chandelier', ...centre(altar), { height: 2.8, radius: 2.5, color: '#9aff8a' });
+  g.light('chandelier', ...center(altar), { height: 2.8, radius: 2.5, color: '#9aff8a' });
   d.hall(3, { floor: 'cobble', wall: 'stone' });
   d.exit(3);
   return g;

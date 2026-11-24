@@ -172,7 +172,7 @@ hats, a tin robot, a rubber alien, camera drones, zombie extras, the Mummy, a
 rubber bat on its wire, hoods, muscle, a flatfoot, the dame, a newsie, pirates
 and an animatronic parrot. They share a costume department (`wardrobe.js`):
 fedoras, stetsons, top hats, berets, peaked caps, tricorns, bowlers, glasses,
-suit fronts, moustaches, beards, eye patches and bandanas.
+suit fronts, mustaches, beards, eye patches and bandanas.
 
 ![The cast](docs/screenshots/cast.jpg)
 

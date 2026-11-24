@@ -21,7 +21,7 @@ export const CASTING = {
   ambient: [0.95, 0.93, 0.92], lamp: '#fff2d8', trap: '#3a3632', lift: '#4a4a52', exit: '#ffc84a', vary: 0.06,
 };
 
-/** The office's colours: strip-light white, a warm lamp, the gold of the studio's name. */
+/** The office's colors: strip-light white, a warm lamp, the gold of the studio's name. */
 const OFFICE = ['#fff4e0', '#ffc870', '#ffe2a0'];
 const GOLD = '#ffc84a';
 

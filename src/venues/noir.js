@@ -1,6 +1,6 @@
 import { digger } from 'madness-engine/venue/dig';
 import { Venue } from '../venue.js';
-import { across, backTile, barred, branch, centre, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
+import { across, backTile, barred, branch, center, flat, toBack, wallTile, wash } from 'madness-engine/venue/helpers';
 
 /**
  * Scene 7: The Noir. Stage 9's city street, in black and white, in the rain
@@ -158,7 +158,7 @@ export function noir() {
   g.popcorn(...store.tile(2, 0), 10).popcorn(...store.tile(7, -4), 10).popcorn(...store.tile(7, 4), 10).popcorn(...store.tile(12, -5), 10);
   g.tape(...store.tile(2, -5)).tape(...store.tile(2, 5));
   g.light('blinds', ...wallTile(store, 9), { aim: toBack(store).map((v) => -4 * v), height: 2.2, width: 3, depth: 3.4, program: 'pulse' });
-  void centre;
+  void center;
   d.hall(3, { floor: 'concrete', wall: 'corrugated' });
   d.exit(3);
   return g;
